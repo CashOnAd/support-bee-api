@@ -1,0 +1,12 @@
+{
+    "name": "cashonad/supportbee-api",
+    "type": "library",
+    "description": "API to connect PHP with Support Bee",
+    "require": {
+        "php": ">=5.3.0",
+	"guzzle/guzzle": "3.8.*@dev"
+    },
+    "autoload": {
+        "psr-0": {"SupportBee": "src"}
+    }
+}
