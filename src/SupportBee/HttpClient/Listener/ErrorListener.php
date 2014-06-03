@@ -37,12 +37,12 @@ class ErrorListener {
         if ($response->isClientError() || $response->isServerError()) {
 
             $content = ResponseMediator::getContent($response);
-            if (is_array($content) && isset($content['message'])) {
+            if (is_array($content) && isset($content->error)) {
                 if (400 == $response->getStatusCode()) {
-                    throw new ErrorException($content['message'], 400);
-                } elseif (422 == $response->getStatusCode() && isset($content['errors'])) {
+                    throw new ErrorException($content->error, 400);
+                } elseif (422 == $response->getStatusCode() && isset($content->error)) {
                     $errors = array();
-                    foreach ($content['errors'] as $error) {
+                    foreach ($content->error as $error) {
                         switch ($error['code']) {
                             case 'missing':
                                 $errors[] = sprintf('The %s %s does not exist, for resource "%s"', $error['field'], $error['value'], $error['resource']);
@@ -70,7 +70,7 @@ class ErrorListener {
                 }
             }
 
-            throw new RuntimeException(isset($content['message']) ? $content['message'] : $content, $response->getStatusCode());
+            throw new RuntimeException(isset($content->error) ? $content->error : $content, $response->getStatusCode());
         };
     }
 

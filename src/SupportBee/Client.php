@@ -3,6 +3,7 @@
 namespace SupportBee;
 
 use SupportBee\Api\ApiInterface;
+use SupportBee\Api\Labels;
 use SupportBee\Api\Tickets;
 use SupportBee\Exception\InvalidArgumentException;
 use SupportBee\HttpClient\HttpClient;
@@ -50,6 +51,10 @@ class Client {
         switch ($name) {
             case 'tickets':
                 $api = new Tickets($this);
+                break;
+
+            case 'labels':
+                $api = new Labels($this);
                 break;
 
             default :

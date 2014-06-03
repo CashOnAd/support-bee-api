@@ -59,6 +59,12 @@ class Ticket {
 
     /**
      *
+     * @var ArrayCollection
+     */
+    private $tickets;
+
+    /**
+     *
      * @var DateTime
      */
     private $receivedDate;
@@ -101,6 +107,10 @@ class Ticket {
         return $this->attachments;
     }
 
+    public function getTickets() {
+        return $this->tickets;
+    }
+
     public function getReceivedDate() {
         return $this->receivedDate;
     }
@@ -139,6 +149,10 @@ class Ticket {
 
     public function setAttachments($attachments) {
         $this->attachments = $attachments;
+    }
+
+    public function setTickets($tickets) {
+        $this->tickets = $tickets;
     }
 
     public function setReceivedDate($receivedDate) {

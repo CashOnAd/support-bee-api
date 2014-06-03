@@ -119,7 +119,8 @@ class HttpClient implements HttpClientInterface {
         } catch (LogicException $e) {
             throw new ErrorException($e->getMessage());
         } catch (\RuntimeException $e) {
-            throw new RuntimeException($e->getMessage());
+            echo $e->getMessage();
+//            throw new RuntimeException($e->getMessage());
         }
 
         return $response;
