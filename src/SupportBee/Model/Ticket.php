@@ -70,6 +70,26 @@ class Ticket {
     private $receivedDate;
 
     /**
+     * @var int
+     */
+    private $total;
+
+    /**
+     * @var int
+     */
+    private $perPage;
+
+    /**
+     * @var int
+     */
+    private $totalPages;
+
+    /**
+     * @var int
+     */
+    private $currentPage;
+
+    /**
      *
      * @var DateTime
      */
@@ -109,6 +129,22 @@ class Ticket {
 
     public function getTickets() {
         return $this->tickets;
+    }
+
+    public function getTotal() {
+        return $this->total;
+    }
+
+    public function getPerPage() {
+        return $this->perPage;
+    }
+
+    public function getTotalPages() {
+        return $this->totalPages;
+    }
+
+    public function getCurrentPage() {
+        return $this->currentPage;
     }
 
     public function getReceivedDate() {
@@ -153,6 +189,22 @@ class Ticket {
 
     public function setTickets($tickets) {
         $this->tickets = $tickets;
+    }
+
+    public function setTotal($total) {
+        $this->total = $total;
+    }
+
+    public function setPerPage($perPage) {
+        $this->perPage = $perPage;
+    }
+
+    public function setTotalPages($totalPages) {
+        $this->totalPages = $totalPages;
+    }
+
+    public function setCurrentPage($currentPage) {
+        $this->currentPage = $currentPage;
     }
 
     public function setReceivedDate($receivedDate) {

@@ -112,13 +112,21 @@ class Tickets extends AbstractApi {
     }
 
     //Adding Labels to Ticket
-    public function addLabelstoTicket($ticket_id, $label_name) {
+    public function addLabelstoTicket($data) {
+        $ticket_id = $data->getTicketId();
+        $label_name = $data->getLabelName();
         $result = $this->post('/tickets/' . $ticket_id . '/labels/' . $label_name);
-        return $result;
+        $response = new \SupportBee\Model\Label();
+        $response->setLabelId($result->label->id);
+        $response->setTicketId($result->label->ticket);
+        $response->setLabelName($result->label->label);
+        return $response;
     }
 
     //Removing Labels from Ticket
-    public function removeLabelFromTicket($ticket_id, $label_name) {
+    public function removeLabelFromTicket($data) {
+        $ticket_id = $data->getTicketId();
+        $label_name = $data->getLabelName();
         $result = $this->delete('/tickets/' . $ticket_id . '/labels/' . $label_name);
         return $result;
     }
@@ -127,13 +135,27 @@ class Tickets extends AbstractApi {
     public function searchTicket($query = NULL, $per_page = 15) {
         $parameters = array('query' => $query, 'per_page' => $per_page);
         $result = $this->get('/tickets/search', $parameters);
-        return $result;
+
+        $data = new Ticket();
+        $data->setTotal($result->total);
+        $data->setCurrentPage($result->current_page);
+        $data->setPerPage($result->per_page);
+        $data->setTotalPages($result->total_pages);
+        $data->setTickets($result->tickets);
+        return $data;
     }
 
     //Upload Attachment
-    public function uploadFile($path_to_file) {
-        $parameters = array('files[]' => '/var/www/ad.jpg', 'enctype' => 'multipart/form-data');
-        $result = $this->post('/attachments', $parameters);
+    public function uploadFile($filename) {
+
+        $file_content = file_get_contents('/var/www/' . $filename);
+        $headers = array(
+            'Content-Type' => 'multipart/form-data'
+        );
+        $parameters = array(
+            'files[]' => $file_content
+        );
+        $result = $this->postRaw('/attachments', $parameters, $headers);
         return $result;
     }
 

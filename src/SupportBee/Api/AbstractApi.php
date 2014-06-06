@@ -98,7 +98,6 @@ class AbstractApi implements ApiInterface {
         $response = $this->client->getHttpClient()->post(
                 $path, $body, $requestHeaders
         );
-
         return ResponseMediator::getContent($response);
     }
 

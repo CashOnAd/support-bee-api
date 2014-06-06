@@ -82,11 +82,7 @@ class HttpClient implements HttpClientInterface {
     }
 
     /**
-     * {@inheritDoc}$remaining = (string) $response->getHeader('X-RateLimit-Remaining');
-
-      if (null != $remaining && 1 > $remaining && 'rate_limit' !== substr($request->getResource(), 1, 10)) {
-      throw new ApiLimitExceedException($this->options['api_limit']);
-      }
+     * {@inheritDoc}
      */
     public function delete($path, $body = null, array $headers = array()) {
         return $this->request($path, $body, 'DELETE', $headers);
@@ -119,8 +115,7 @@ class HttpClient implements HttpClientInterface {
         } catch (LogicException $e) {
             throw new ErrorException($e->getMessage());
         } catch (\RuntimeException $e) {
-            echo $e->getMessage();
-//            throw new RuntimeException($e->getMessage());
+            throw new RuntimeException($e->getMessage());
         }
 
         return $response;
